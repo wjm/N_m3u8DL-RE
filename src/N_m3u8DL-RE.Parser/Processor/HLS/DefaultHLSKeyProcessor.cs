@@ -6,6 +6,7 @@ using N_m3u8DL_RE.Common.Util;
 using N_m3u8DL_RE.Parser.Config;
 using N_m3u8DL_RE.Parser.Util;
 using Spectre.Console;
+using System.Text.RegularExpressions;
 
 namespace N_m3u8DL_RE.Parser.Processor.HLS;
 
