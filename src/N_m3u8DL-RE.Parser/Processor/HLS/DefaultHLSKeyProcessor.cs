@@ -37,7 +37,10 @@ public class DefaultHLSKeyProcessor : KeyProcessor
 
         // KEY
         try
-        {
+        {   
+            var match = Regex.Match(uri, @"^data:text/plain[^,]*;base64,(.+)$", RegexOptions.IgnoreCase);
+
+        
             if (parserConfig.CustomeKey is { Length: > 0 })
             {
                 encryptInfo.Key = parserConfig.CustomeKey;
@@ -50,9 +53,9 @@ public class DefaultHLSKeyProcessor : KeyProcessor
             {
                 encryptInfo.Key = Convert.FromBase64String(uri[13..]);
             }
-            else if (uri.ToLower().StartsWith("data:text/plain;base64,"))
+            else if (match.Success)
             {
-                encryptInfo.Key = Convert.FromBase64String(uri[23..]);
+                encryptInfo.Key = Convert.FromBase64String(match.Groups[1].Value);
             }
             else if (File.Exists(uri))
             {
